@@ -85,6 +85,14 @@
     [data-theme="light"] #hero {
       background: radial-gradient(ellipse 70% 50% at 50% 40%, rgba(193,18,31,.07) 0%, transparent 70%), var(--bg);
     }
+    .hero-watermark {
+      position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+      width:55vw; height:55vw; max-width:680px; max-height:680px;
+      border-radius:50%; overflow:hidden; pointer-events:none; z-index:0;
+    }
+    [data-theme="dark"] .hero-watermark img { opacity:.06; filter:grayscale(20%); }
+    [data-theme="light"] .hero-watermark img { opacity:.08; filter:grayscale(30%); }
+    .hero-watermark img { width:100%; height:100%; object-fit:cover; transition:opacity .3s; }
     .hero-inner { text-align:center; max-width:800px; position:relative; z-index:1; }
     .hero-logo {
       width:260px; height:260px; margin:0 auto 2.5rem;
@@ -293,6 +301,105 @@
     }
     .footer-copy { font-size:.75rem; color:var(--muted); }
 
+    /* ── CAMPANHA ── */
+    #campanha {
+      background: var(--bg);
+      position: relative; overflow:hidden;
+    }
+    #campanha::before {
+      content:''; position:absolute; inset:0;
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(230,57,70,.08) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .camp-header { text-align:center; margin-bottom:3rem; }
+    .camp-date {
+      display:inline-flex; align-items:center; gap:.5rem;
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      color:#fff; font-size:.78rem; font-weight:700; letter-spacing:1.5px;
+      padding:.45rem 1.2rem; border-radius:20px; text-transform:uppercase;
+      margin-bottom:1rem;
+      box-shadow: 0 4px 16px rgba(230,57,70,.4);
+    }
+    .camp-pulse {
+      display:inline-block; width:8px; height:8px; border-radius:50%;
+      background:#fff; animation:pulse-dot 1.4s infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:.4; transform:scale(.7); }
+    }
+    .camp-domingo-grid {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:1.2rem; margin-bottom:3rem;
+    }
+    .camp-card {
+      background: var(--bg2); border:1px solid var(--border);
+      border-radius:20px; padding:2rem 1.5rem; text-align:center;
+      position:relative; overflow:hidden;
+      transition: transform .3s, border-color .3s, box-shadow .3s;
+    }
+    .camp-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:3px;
+      background:linear-gradient(90deg,var(--red),#FF6B6B);
+      transform:scaleX(0); transition:transform .3s;
+    }
+    .camp-card:hover { transform:translateY(-6px); border-color:var(--border); box-shadow: 0 16px 40px rgba(230,57,70,.15); }
+    .camp-card:hover::before { transform:scaleX(1); }
+    .camp-card-icon {
+      width:56px; height:56px; border-radius:16px; margin:0 auto 1rem;
+      background:rgba(230,57,70,.1); display:flex; align-items:center; justify-content:center;
+    }
+    .camp-num {
+      font-family:'Playfair Display',serif; font-size:3rem; font-weight:900; line-height:1;
+      background:linear-gradient(135deg, var(--text) 0%, var(--red) 70%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      margin-bottom:.3rem;
+    }
+    .camp-num-prefix { font-size:1.4rem; }
+    .camp-label { font-size:.78rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:1px; }
+
+    /* Totais acumulados */
+    .camp-totais-title {
+      text-align:center; margin-bottom:1.5rem;
+      font-size:.65rem; font-weight:700; letter-spacing:3px;
+      text-transform:uppercase; color:var(--navy-light);
+      display:flex; align-items:center; gap:.8rem;
+    }
+    .camp-totais-title::before,
+    .camp-totais-title::after { content:''; flex:1; height:1px; background:var(--border2); }
+    .camp-totais-grid {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:1rem;
+    }
+    .totais-card {
+      background:var(--bg3); border:1px solid var(--border2);
+      border-radius:14px; padding:1.4rem 1.2rem; text-align:center;
+      transition: border-color .3s;
+    }
+    .totais-card:hover { border-color:var(--navy-light); }
+    .totais-num {
+      font-family:'Playfair Display',serif; font-size:2rem; font-weight:900;
+      color:var(--navy-light); margin-bottom:.2rem;
+    }
+    .totais-label { font-size:.72rem; color:var(--muted); letter-spacing:.5px; }
+
+    /* ── DIFERENCIAIS ── */
+    #diferenciais { background:var(--bg2); }
+    .diff-grid-3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; margin-top:2.5rem; }
+    .diff-card {
+      background:var(--bg3); border:1px solid var(--border2);
+      border-radius:18px; padding:2rem 1.8rem;
+      transition: border-color .3s, transform .3s;
+    }
+    .diff-card:hover { border-color:var(--red); transform:translateY(-4px); }
+    .diff-card-icon {
+      width:52px; height:52px; border-radius:14px;
+      background:rgba(230,57,70,.1); display:flex; align-items:center; justify-content:center;
+      margin-bottom:1.2rem;
+    }
+    .diff-card-title { font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:900; color:var(--text); margin-bottom:.5rem; }
+    .diff-card-desc { font-size:.85rem; color:var(--muted); line-height:1.65; }
+
     /* ── RESPONSIVE ── */
     @media (max-width:768px) {
       .missao-grid, .quem-grid { grid-template-columns:1fr; gap:2rem; }
@@ -308,18 +415,23 @@
 <nav>
   <div class="nav-logo">Coração<span> na Rua</span></div>
   <ul class="nav-links">
+    <li><a href="#campanha">Campanha</a></li>
     <li><a href="#missao">Missão</a></li>
     <li><a href="#doacao">Doe Agora</a></li>
     <li><a href="#quem">Quem Somos</a></li>
     <li><a href="#contato">Contato</a></li>
   </ul>
-  <button class="btn-theme" id="btnTheme" aria-label="Alternar tema">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <button class="btn-theme" id="btnTheme" title="Alternar tema claro/escuro" aria-label="Alternar tema">
+    <svg id="themeIcon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
   </button>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
+  <!-- Logo watermark de fundo -->
+  <div class="hero-watermark">
+    <img src="logo.jpeg" alt="" aria-hidden="true" />
+  </div>
   <div class="hero-inner">
     <div class="hero-logo">
       <img src="logo.jpeg" alt="Coração na Rua Goiânia" />
@@ -331,6 +443,135 @@
     <div class="hero-btns">
       <a href="#doacao" class="btn-red">Quero Doar</a>
       <a href="#missao" class="btn-outline">Nossa Missão</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CAMPANHA DOMINGO -->
+<section id="campanha">
+  <div class="container">
+    <div class="camp-header">
+      <div class="camp-date">
+        <span class="camp-pulse"></span>
+        Campanha deste Domingo
+      </div>
+      <p class="section-label">Resultado em tempo real</p>
+      <h2 class="section-title">O que já <span>conquistamos</span></h2>
+      <p class="section-desc" style="max-width:540px;margin:0 auto;">Cada número aqui representa uma vida tocada. Acompanhe o impacto desta campanha e ajude a aumentar esses números.</p>
+    </div>
+
+    <!-- Contadores do domingo -->
+    <div class="camp-domingo-grid">
+      <div class="camp-card">
+        <div class="camp-card-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="camp-num"><span class="camp-num-prefix">R$</span> <span class="counter" data-target="0" data-decimals="2">0,00</span></div>
+        <div class="camp-label">Arrecadado</div>
+      </div>
+      <div class="camp-card">
+        <div class="camp-card-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+        </div>
+        <div class="camp-num"><span class="counter" data-target="0">0</span></div>
+        <div class="camp-label">Marmitas distribuídas</div>
+      </div>
+      <div class="camp-card">
+        <div class="camp-card-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div class="camp-num"><span class="counter" data-target="0">0</span></div>
+        <div class="camp-label">Agasalhos doados</div>
+      </div>
+      <div class="camp-card">
+        <div class="camp-card-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <div class="camp-num"><span class="counter" data-target="0">0</span></div>
+        <div class="camp-label">Cobertores entregues</div>
+      </div>
+      <div class="camp-card">
+        <div class="camp-card-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="camp-num"><span class="counter" data-target="0">0</span></div>
+        <div class="camp-label">Pessoas beneficiadas</div>
+      </div>
+      <div class="camp-card">
+        <div class="camp-card-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        </div>
+        <div class="camp-num"><span class="counter" data-target="0">0</span></div>
+        <div class="camp-label">Cestas de alimentos</div>
+      </div>
+    </div>
+
+    <!-- Totais acumulados -->
+    <div class="camp-totais-title">Total acumulado de todas as campanhas</div>
+    <div class="camp-totais-grid">
+      <div class="totais-card">
+        <div class="totais-num"><span class="counter" data-target="0">0</span></div>
+        <div class="totais-label">Marmitas no total</div>
+      </div>
+      <div class="totais-card">
+        <div class="totais-num"><span class="counter" data-target="0">0</span></div>
+        <div class="totais-label">Agasalhos no total</div>
+      </div>
+      <div class="totais-card">
+        <div class="totais-num"><span class="counter" data-target="0">0</span></div>
+        <div class="totais-label">Cobertores no total</div>
+      </div>
+      <div class="totais-card">
+        <div class="totais-num"><span class="counter" data-target="0">0</span></div>
+        <div class="totais-label">Pessoas impactadas</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DIFERENCIAIS -->
+<section id="diferenciais" style="background:var(--bg2);">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:1rem;">
+      <p class="section-label">Por que apoiar</p>
+      <h2 class="section-title">Transparência e <span>propósito</span></h2>
+      <p class="section-desc" style="max-width:560px;margin:0 auto;">Mais que uma ONG — somos um movimento de amor que cresce a cada domingo.</p>
+    </div>
+    <div class="diff-grid-3">
+      <div class="diff-card">
+        <div class="diff-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="diff-card-title">100% Transparente</div>
+        <div class="diff-card-desc">Todo centavo doado é convertido em marmitas, agasalhos e alimentos. Publicamos os resultados de cada ação aqui no site.</div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div class="diff-card-title">Ação todo Domingo</div>
+        <div class="diff-card-desc">Toda semana estamos nas ruas de Goiânia. Não paramos — enquanto houver necessidade, haverá coração na rua.</div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
+        <div class="diff-card-title">Equipe Voluntária</div>
+        <div class="diff-card-desc">Somos pessoas comuns movidas pelo amor ao próximo. Nenhum salário, apenas a missão de transformar vidas.</div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="diff-card-title">Dignidade em Primeiro</div>
+        <div class="diff-card-desc">Não apenas distribuímos alimentos — olhamos nos olhos, escutamos histórias e tratamos cada pessoa com amor e respeito.</div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="diff-card-title">Crescendo Sempre</div>
+        <div class="diff-card-desc">Estamos começando, mas nosso sonho é grande. Cada doação nos aproxima de atingir mais pessoas em Goiânia e região.</div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <div class="diff-card-title">Comunidade Unida</div>
+        <div class="diff-card-desc">Com o apoio de parceiros locais, construímos uma rede de solidariedade que fortalece toda a comunidade goianiense.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -561,9 +802,83 @@
 </footer>
 
 <script>
+  /* ════════════════════════════════
+     CONFIGURAÇÃO DA CAMPANHA
+     Atualize estes números a qualquer momento
+  ════════════════════════════════ */
+  const CAMPANHA_DOMINGO = {
+    arrecadado:   0,    // R$ arrecadado no domingo
+    marmitas:     0,    // marmitas distribuídas
+    agasalhos:    0,    // agasalhos doados
+    cobertores:   0,    // cobertores entregues
+    beneficiados: 0,    // pessoas beneficiadas
+    cestas:       0,    // cestas de alimentos
+  };
+  const CAMPANHA_TOTAL = {
+    marmitas:     0,    // total histórico marmitas
+    agasalhos:    0,    // total histórico agasalhos
+    cobertores:   0,    // total histórico cobertores
+    impactados:   0,    // total histórico pessoas
+  };
+
+  /* ── INJECT CAMPAIGN DATA ── */
+  (function injectData() {
+    const domingo = document.querySelectorAll('#campanha .camp-domingo-grid .counter');
+    const vals = [
+      CAMPANHA_DOMINGO.arrecadado,
+      CAMPANHA_DOMINGO.marmitas,
+      CAMPANHA_DOMINGO.agasalhos,
+      CAMPANHA_DOMINGO.cobertores,
+      CAMPANHA_DOMINGO.beneficiados,
+      CAMPANHA_DOMINGO.cestas
+    ];
+    domingo.forEach((el, i) => el.dataset.target = vals[i]);
+
+    const totais = document.querySelectorAll('#campanha .camp-totais-grid .counter');
+    const tvals = [
+      CAMPANHA_TOTAL.marmitas,
+      CAMPANHA_TOTAL.agasalhos,
+      CAMPANHA_TOTAL.cobertores,
+      CAMPANHA_TOTAL.impactados
+    ];
+    totais.forEach((el, i) => el.dataset.target = tvals[i]);
+  })();
+
+  /* ── COUNTER ANIMATION ── */
+  function animateCounter(el) {
+    const target = parseFloat(el.dataset.target) || 0;
+    const decimals = parseInt(el.dataset.decimals) || 0;
+    const duration = 1800;
+    const start = performance.now();
+    function update(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const val = target * ease;
+      el.textContent = decimals
+        ? val.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+        : Math.round(val).toLocaleString('pt-BR');
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  const observed = new Set();
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.counter').forEach(el => {
+          if (!observed.has(el)) { observed.add(el); animateCounter(el); }
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.camp-domingo-grid, .camp-totais-grid').forEach(el => observer.observe(el));
+
   /* ── THEME ── */
   const btn = document.getElementById('btnTheme');
-  const SUN = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+  const SUN  = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
   const MOON = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
   let dark = true;
   btn.addEventListener('click', () => {
