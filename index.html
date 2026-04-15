@@ -434,11 +434,15 @@
             <span class="pix-info-val">Livre &mdash; qualquer valor ajuda</span>
           </div>
         </div>
-        <button class="btn-copy" id="btnCopy">
+        <button class="btn-copy" id="btnCopyCola">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          Copiar Chave Pix
+          Pix Copia e Cola
         </button>
-        <p class="pix-note">Ao escanear o QR Code ou copiar a chave, basta informar o valor que deseja doar no seu app bancário. Obrigado pelo seu coração!</p>
+        <button class="btn-copy" id="btnCopy" style="margin-top:.5rem; opacity:.7; font-size:.8rem;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          Copiar só a chave Pix
+        </button>
+        <p class="pix-note">Escaneie o QR Code ou use o botão "Copia e Cola" no seu app bancário. Qualquer valor ajuda a transformar vidas!</p>
       </div>
     </div>
   </div>
@@ -570,15 +574,30 @@
 
 
   /* ── COPY PIX ── */
-  document.getElementById('btnCopy').addEventListener('click', function() {
-    navigator.clipboard.writeText('36cbf287-d1aa-4e38-9bfa-27762872f0ba').then(() => {
-      this.classList.add('copied');
-      this.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Chave copiada!`;
+  const PIX_PAYLOAD = '00020101021126580014br.gov.bcb.pix013636cbf287-d1aa-4e38-9bfa-27762872f0ba5204000053039865802BR5916HELDER M BATISTA6007GOIANIA62070503***63045E83';
+  const PIX_KEY = '36cbf287-d1aa-4e38-9bfa-27762872f0ba';
+
+  function copyBtn(btn, text, label) {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.classList.add('copied');
+      btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copiado!`;
       setTimeout(() => {
-        this.classList.remove('copied');
-        this.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar Chave Pix`;
+        btn.classList.remove('copied');
+        btn.innerHTML = label;
       }, 2500);
     });
+  }
+
+  document.getElementById('btnCopyCola').addEventListener('click', function() {
+    copyBtn(this, PIX_PAYLOAD,
+      `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Pix Copia e Cola`
+    );
+  });
+
+  document.getElementById('btnCopy').addEventListener('click', function() {
+    copyBtn(this, PIX_KEY,
+      `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Copiar só a chave Pix`
+    );
   });
 </script>
 </body>
